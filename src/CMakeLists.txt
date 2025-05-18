@@ -13,6 +13,7 @@ add_library(cgame_obj OBJECT
   cg_gl.c
   cg_hud.c
   cg_jump.c
+  cg_segment.c
   cg_main.c
   cg_marks.c
   cg_rl.c

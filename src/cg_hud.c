@@ -27,6 +27,7 @@
 #include "cg_entity.h"
 #include "cg_gl.h"
 #include "cg_jump.h"
+#include "cg_segment.h"
 #include "cg_local.h"
 #include "cg_rl.h"
 #include "cg_snap.h"
@@ -64,6 +65,7 @@ void init_hud(void)
   init_rl();
   init_snap();
   init_timer();
+  init_segment();
 }
 
 void del_hud(void)
@@ -88,6 +90,7 @@ void update_hud(void)
   update_rl();
   update_snap();
   update_timer();
+  update_segment();
 }
 
 void draw_hud(void)
@@ -105,4 +108,5 @@ void draw_hud(void)
   draw_ammo();
   draw_jump();
   draw_timer();
+  draw_segment();
 }
