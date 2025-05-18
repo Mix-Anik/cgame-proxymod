@@ -71,6 +71,7 @@ jobs:
         -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -m${{ matrix.arch }}"
         -DCMAKE_C_COMPILER=${{ matrix.c }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
     - name: Build
       run: cmake --build build
