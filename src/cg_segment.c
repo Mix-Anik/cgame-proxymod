@@ -37,7 +37,7 @@ void update_segment(void)
   update_cvars(segment_cvars, ARRAY_LEN(segment_cvars));
 }
 
-// vec4_t text_rgba = { 1, 1, 1, 1 };
+vec4_t text_rgba = { 1, 1, 1, 1 };
 
 void draw_segment(void)
 {
@@ -49,7 +49,7 @@ void draw_segment(void)
     100,
     12,
     vaf("%i", 999),
-    { 1, 1, 1, 1 },
+    text_rgba,
     qtrue,
     qtrue
   );
