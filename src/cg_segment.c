@@ -8,8 +8,36 @@
 
 #include <stdlib.h>
 
+vec4_t text_rgba = { 1, 1, 1, 1 };
+// typedef struct
+// {
+//   // timestamps for computation
+//   uint32_t t_jumpPreGround;
+//   uint32_t t_groundTouch;
+
+//   // state machine
+//   state_t lastState;
+
+//   // draw data
+//   int32_t postDelay;
+//   int32_t preDelay;
+//   int32_t fullDelay;
+
+//   vec4_t graph_xywh;
+//   vec2_t text_xh;
+
+//   vec4_t graph_rgba;
+//   vec4_t graph_rgbaPostJump;
+//   vec4_t graph_rgbaOnGround;
+//   vec4_t graph_rgbaPreJump;
+//   vec4_t graph_outline_rgba;
+//   vec4_t text_rgba;
+// } segment_t;
+
 static vmCvar_t segment;
 static vmCvar_t segment_time_xh;
+
+// static segment_t segment_;
 
 static cvarTable_t segment_cvars[] = {
   { &segment, "mdd_segment", "0", CVAR_ARCHIVE_ND },
@@ -37,8 +65,6 @@ void update_segment(void)
   update_cvars(segment_cvars, ARRAY_LEN(segment_cvars));
 }
 
-vec4_t text_rgba = { 1, 1, 1, 1 };
-
 void draw_segment(void)
 {
   if (!segment.integer) return;
@@ -48,7 +74,7 @@ void draw_segment(void)
     100,
     100,
     12,
-    vaf("%i", 999),
+    vaf("%i", cg.time),
     text_rgba,
     qtrue,
     qtrue
