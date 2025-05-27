@@ -74,7 +74,7 @@ void draw_segment(void)
     100,
     100,
     12,
-    vaf("%i", cg.time),
+    vaf("%i", cg.physicsTime),
     text_rgba,
     qtrue,
     qtrue
