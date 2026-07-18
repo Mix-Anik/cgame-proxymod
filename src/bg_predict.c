@@ -155,6 +155,11 @@ qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_f
 	vec3_t knockbackDir;
 	vec3_t knockbackVel;
 
+	// Only predict if player is on ground
+	if ( ps->groundEntityNum == ENTITYNUM_NONE ) {
+		return qfalse;
+	}
+
 	// Trace rocket path from player's weapon position
 	AngleVectors(ps->viewangles, rocketDir, NULL, NULL);
 	VectorMA(ps->origin, 8192.0f, rocketDir, rocketEnd);  // Long trace distance
