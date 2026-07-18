@@ -63,7 +63,7 @@ static qboolean PM_IsGrounded( vec3_t currentPos, trace_t *outTrace, traceFunc_t
 	VectorCopy(currentPos, groundCheckEnd);
 	groundCheckEnd[2] -= pred_groundCheckOffset;
 
-	trace_func(outTrace, currentPos, pred_playerMins, pred_playerMaxs, groundCheckEnd, clientNum, MASK_PLAYERSOLID);
+	trace_func(outTrace, currentPos, groundCheckEnd, pred_playerMins, pred_playerMaxs, 0, MASK_PLAYERSOLID);
 
 	// Invalid state: player in solid geometry
 	if ( outTrace->allsolid ) {
@@ -117,7 +117,7 @@ qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gr
 
 		// Move player
 		VectorMA( currentPos, pred_frametime, currentVel, traceEnd );
-		trace_func( &trace, currentPos, pred_playerMins, pred_playerMaxs, traceEnd, clientNum, MASK_PLAYERSOLID );
+		trace_func( &trace, currentPos, traceEnd, pred_playerMins, pred_playerMaxs, 0, MASK_PLAYERSOLID );
 
 		if ( trace.fraction == 0.0f ) {
 			// Hit wall immediately, stop prediction
@@ -159,7 +159,7 @@ qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_f
 	// Trace rocket path from player's weapon position
 	AngleVectors(ps->viewangles, rocketDir, NULL, NULL);
 	VectorMA(ps->origin, 8192.0f, rocketDir, rocketEnd);  // Long trace distance
-	trace_func(&rocketTrace, ps->origin, NULL, NULL, rocketEnd, ps->clientNum, MASK_SHOT);
+	trace_func(&rocketTrace, ps->origin, rocketEnd, NULL, NULL, 0, MASK_SHOT);
 
 	// Explosion point is where rocket hits
 	VectorMA(ps->origin, rocketTrace.fraction * 8192.0f, rocketDir, explosionPoint);
@@ -175,6 +175,12 @@ qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_f
 
 	// Direction from explosion to player (knockback direction)
 	VectorSubtract(ps->origin, explosionPoint, knockbackDir);
+	if ( VectorLength(knockbackDir) < 0.001f ) {
+		// Explosion at player location, no knockback direction
+		VectorClear(knockbackVel);
+		return PM_PredictLanding(ps->origin, knockbackVel, ps->gravity, ps->clientNum,
+								  trace_func, outLanding);
+	}
 	VectorNormalize(knockbackDir);
 
 	// Calculate knockback using Q3 formula: kvel = dir * g_knockback * knockback / mass
