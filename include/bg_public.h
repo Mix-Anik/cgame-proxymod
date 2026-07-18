@@ -114,8 +114,8 @@ typedef struct
 } pmove_t;
 
 // predict landing position after knockback
-typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs,
-							  const vec3_t end, int passEntityNum, int contentMask );
+typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t end, const vec3_t mins, const vec3_t maxs,
+							  int passEntityNum, int contentMask );
 qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gravity,
 							 traceFunc_t trace_func, vec3_t outLanding );
 
