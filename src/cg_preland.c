@@ -21,28 +21,48 @@ GNU General Public License for more details.
 #include "cg_local.h"
 #include "cg_cvar.h"
 #include "cg_preland.h"
+#include "cg_draw.h"
 #include "bg_public.h"
 
-static vmCvar_t cl_preland;
+static vmCvar_t preland;
 
 static cvarTable_t preland_cvars[] = {
-	{ &cl_preland, "cl_preland", "0", CVAR_ARCHIVE },
+	{ &preland, "mdd_preland", "0", CVAR_ARCHIVE },
 };
 
-static size_t preland_cvars_size = ARRAY_LEN(preland_cvars);
-
-void CG_PrelandInit( void ) {
-	init_cvars(preland_cvars, preland_cvars_size);
+void init_preland( void ) {
+	init_cvars(preland_cvars, ARRAY_LEN(preland_cvars));
 }
 
-void CG_PrelandUpdate( void ) {
-	update_cvars(preland_cvars, preland_cvars_size);
+void update_preland( void ) {
+	update_cvars(preland_cvars, ARRAY_LEN(preland_cvars));
+}
+
+void draw_preland( void ) {
+	vec3_t landingPos;
+	vec4_t textColor = { 1.0f, 1.0f, 0.0f, 1.0f };  // Yellow
+
+	if ( !preland.integer ) {
+		return;
+	}
+
+	// TODO: Implement actual prediction here
+	// For now, just show a placeholder
+	CG_DrawText(
+		100,
+		150,
+		12,
+		"Preland: [feature ready]",
+		textColor,
+		qtrue,
+		qtrue
+	);
 }
 
 void CG_PredictLanding( void ) {
 	// Placeholder for landing prediction
 	// To be integrated when cgame proxy architecture is better understood
-	if ( !cl_preland.integer ) {
+	if ( !preland.integer ) {
 		return;
 	}
 }

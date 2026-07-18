@@ -27,6 +27,7 @@
 #include "cg_entity.h"
 #include "cg_gl.h"
 #include "cg_jump.h"
+#include "cg_preland.h"
 #include "cg_segment.h"
 #include "cg_local.h"
 #include "cg_rl.h"
@@ -62,6 +63,7 @@ void init_hud(void)
   init_gl();
   init_jump();
   init_pitch();
+  init_preland();
   init_rl();
   init_snap();
   init_timer();
@@ -87,6 +89,7 @@ void update_hud(void)
   update_gl();
   update_jump();
   update_pitch();
+  update_preland();
   update_rl();
   update_snap();
   update_timer();
@@ -107,6 +110,7 @@ void draw_hud(void)
 
   draw_ammo();
   draw_jump();
+  draw_preland();
   draw_timer();
   draw_segment();
 }
