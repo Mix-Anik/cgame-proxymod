@@ -39,7 +39,6 @@ void update_preland( void ) {
 }
 
 void draw_preland( void ) {
-	vec3_t landingPos;
 	vec4_t textColor = { 1.0f, 1.0f, 0.0f, 1.0f };  // Yellow
 
 	if ( !preland.integer ) {
