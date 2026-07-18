@@ -24,6 +24,5 @@ GNU General Public License for more details.
 void init_preland( void );
 void update_preland( void );
 void draw_preland( void );
-void CG_PredictLanding( void );
 
 #endif // CG_PRELAND_H
