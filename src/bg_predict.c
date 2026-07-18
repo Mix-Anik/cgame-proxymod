@@ -10,7 +10,6 @@ static float pred_groundCheckOffset = 0.25f; 		// Distance to check below player
 static float pred_groundNormalThreshold = 0.7f; 	// Min normal.z (MIN_WALK_NORMAL from bg_public.h)
 static float pred_lowVelocityThreshold = 10.0f; 	// Velocity magnitude threshold for terminal state
 static int   pred_lowVelIterationThreshold = 100; 	// Iterations before accepting low velocity as landed
-static float pred_velocityFriction = 0.9f; 			// Friction multiplier when hitting obstacles
 // Player bounds from bg_public.h: PLAYER_WIDTH=15, MINS_Z=-24, DEFAULT_HEIGHT=32
 static vec3_t pred_playerMins = { -15, -15, -24 };
 static vec3_t pred_playerMaxs = { 15, 15, 32 };
@@ -89,7 +88,6 @@ typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t 
 qboolean PM_PredictLanding( vec3_t origin, vec3_t velocity, float gravity,
 							 int clientNum, traceFunc_t trace_func, vec3_t outLanding ) {
 	int iteration = 0;
-	int i;
 	vec3_t currentPos, currentVel;
 	trace_t trace;
 	vec3_t traceEnd;
