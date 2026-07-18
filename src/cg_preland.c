@@ -20,6 +20,7 @@ GNU General Public License for more details.
 
 #include "cg_local.h"
 #include "cg_cvar.h"
+#include "cg_preland.h"
 #include "bg_public.h"
 
 static vmCvar_t cl_preland;
