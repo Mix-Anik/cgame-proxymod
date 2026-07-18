@@ -4,6 +4,7 @@
 #include "cg_cvar.h"
 #include "cg_preland.h"
 #include "cg_draw.h"
+#include "cg_utils.h"
 #include "bg_public.h"
 
 #include <string.h>
