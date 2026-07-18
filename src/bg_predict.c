@@ -149,7 +149,7 @@ Predicts landing position from rocket knockback.
 Traces where rocket hits, calculates splash damage falloff from explosion point.
 ===================
 */
-qboolean PM_PredictRocketKnockback( playerState_t *ps, traceFunc_t trace_func, vec3_t outLanding ) {
+qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_func, vec3_t outLanding ) {
 	vec3_t rocketDir, rocketEnd, explosionPoint;
 	trace_t rocketTrace;
 	float distance, damage, knockback;
