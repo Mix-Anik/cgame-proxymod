@@ -117,7 +117,7 @@ typedef struct
 typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs,
 							  const vec3_t end, int passEntityNum, int contentMask );
 qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gravity,
-							 int clientNum, traceFunc_t trace_func, vec3_t outLanding );
+							 traceFunc_t trace_func, vec3_t outLanding );
 
 // predict landing from rocket knockback
 qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_func, vec3_t outLanding );

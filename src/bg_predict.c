@@ -86,7 +86,7 @@ typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t 
 							  const vec3_t end, int passEntityNum, int contentMask );
 
 qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gravity,
-							 int clientNum, traceFunc_t trace_func, vec3_t outLanding ) {
+							 traceFunc_t trace_func, vec3_t outLanding ) {
 	int iteration = 0;
 	vec3_t currentPos, currentVel;
 	trace_t trace;
@@ -178,7 +178,7 @@ qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_f
 	if ( VectorLength(knockbackDir) < 0.001f ) {
 		// Explosion at player location, no knockback direction
 		VectorClear(knockbackVel);
-		return PM_PredictLanding(ps->origin, knockbackVel, ps->gravity, ps->clientNum,
+		return PM_PredictLanding(ps->origin, knockbackVel, ps->gravity,
 								  trace_func, outLanding);
 	}
 	VectorNormalize(knockbackDir);
@@ -191,6 +191,6 @@ qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_f
 	VectorScale(knockbackDir, pred_knockbackMultiplier * knockback / pred_playerMass, knockbackVel);
 
 	// Use the main prediction function with player's current state
-	return PM_PredictLanding(ps->origin, knockbackVel, ps->gravity, ps->clientNum,
+	return PM_PredictLanding(ps->origin, knockbackVel, ps->gravity,
 							  trace_func, outLanding);
 }
