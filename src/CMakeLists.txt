@@ -8,6 +8,7 @@ add_library(cgame_obj OBJECT
   cg_ammo.c
   cg_cgaz.c
   cg_consolecmds.c
+  cg_preland.c
   cg_cvar.c
   cg_draw.c
   cg_entity.c
