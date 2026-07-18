@@ -49,7 +49,6 @@ void draw_preland( void ) {
 	groundCheckEnd[2] -= 0.30f;
 	trap_CM_BoxTrace(&groundTrace, ps->origin, groundCheckEnd, NULL, NULL, 0, CONTENTS_SOLID);
 
-	float groundZ = ps->origin[2] + groundTrace.fraction * (groundCheckEnd[2] - ps->origin[2]);
-	snprintf(debugBuf, sizeof(debugBuf), "Ground Entity: %d | Ground Z: %.6f", ps->groundEntityNum, groundZ);
+	snprintf(debugBuf, sizeof(debugBuf), "Ground Z: %.6f", groundTrace.endpos[2]);
 	CG_DrawText(100, 165, 12, debugBuf, textColor, qtrue, qtrue);
 }
