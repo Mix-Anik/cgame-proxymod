@@ -119,6 +119,11 @@ typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t 
 qboolean PM_PredictLanding( vec3_t origin, vec3_t velocity, float gravity,
 							 int clientNum, traceFunc_t trace_func, vec3_t outLanding );
 
+// predict landing from rocket knockback
+qboolean PM_PredictRocketKnockback( vec3_t origin, vec3_t knockbackDir, float damage,
+									 float gravity, int clientNum, traceFunc_t trace_func,
+									 vec3_t outLanding );
+
 //===================================================================================
 
 // player_state->stats[] indexes

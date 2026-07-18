@@ -111,3 +111,30 @@ qboolean PM_PredictLanding( vec3_t origin, vec3_t velocity, float gravity,
 	VectorCopy( currentPos, outLanding );
 	return qfalse;
 }
+
+/*
+===================
+PM_PredictRocketKnockback
+
+Predicts landing position from rocket knockback at a given position.
+Handles knockback calculation using Q3 formula.
+===================
+*/
+qboolean PM_PredictRocketKnockback( vec3_t origin, vec3_t knockbackDir, float damage,
+									 float gravity, int clientNum, traceFunc_t trace_func,
+									 vec3_t outLanding ) {
+	vec3_t knockbackVel;
+	float knockback;
+	float g_knockback = 1.0f;  // Knockback multiplier (can be read from cvar)
+	float mass = 200.0f;       // Player mass
+
+	// Calculate knockback using Q3 formula: kvel = dir * g_knockback * knockback / mass
+	knockback = damage;
+	if ( knockback > 200.0f ) {
+		knockback = 200.0f;
+	}
+	VectorScale(knockbackDir, g_knockback * knockback / mass, knockbackVel);
+
+	// Use the main prediction function
+	return PM_PredictLanding(origin, knockbackVel, gravity, clientNum, trace_func, outLanding);
+}

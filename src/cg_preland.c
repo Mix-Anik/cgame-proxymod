@@ -24,6 +24,9 @@ GNU General Public License for more details.
 #include "cg_draw.h"
 #include "bg_public.h"
 
+#include <string.h>
+#include <stdio.h>
+
 static vmCvar_t preland;
 
 static cvarTable_t preland_cvars[] = {
@@ -40,18 +43,30 @@ void update_preland( void ) {
 
 void draw_preland( void ) {
 	vec4_t textColor = { 1.0f, 1.0f, 0.0f, 1.0f };  // Yellow
+	vec3_t landingPos;
+	char buf[256];
+	vec3_t origin = { 0, 0, 0 };
+	vec3_t knockbackDir = { 0, 0, 1 };  // Upward direction from rocket impact
+	float damage = 100.0f;  // Rocket damage
+	float gravity = 800.0f;  // Default gravity
 
 	if ( !preland.integer ) {
 		return;
 	}
 
-	// TODO: Implement actual prediction here
-	// For now, just show a placeholder
+	// Predict landing position from rocket knockback
+	if ( PM_PredictRocketKnockback(origin, knockbackDir, damage, gravity, cg.clientNum,
+		(traceFunc_t)trap_CM_BoxTrace, landingPos) ) {
+		snprintf(buf, sizeof(buf), "Landing: %.1f %.1f %.1f", landingPos[0], landingPos[1], landingPos[2]);
+	} else {
+		snprintf(buf, sizeof(buf), "No landing found");
+	}
+
 	CG_DrawText(
 		100,
 		150,
 		12,
-		"Preland: [feature ready]",
+		buf,
 		textColor,
 		qtrue,
 		qtrue
