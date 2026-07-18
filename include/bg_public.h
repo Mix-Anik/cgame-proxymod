@@ -113,6 +113,12 @@ typedef struct
   int32_t pointcontents; // int32_t (*pointcontents)(vec3_t const point, int32_t passEntityNum);
 } pmove_t;
 
+// predict landing position after knockback
+typedef void (*traceFunc_t)( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs,
+							  const vec3_t end, int passEntityNum, int contentMask );
+qboolean PM_PredictLanding( vec3_t origin, vec3_t velocity, float gravity,
+							 int clientNum, traceFunc_t trace_func, vec3_t outLanding );
+
 //===================================================================================
 
 // player_state->stats[] indexes

@@ -4,6 +4,7 @@ add_library(cgame_obj OBJECT
   bbox.c
   bg_misc.c
   bg_pmove.c
+  bg_predict.c
   cg_ammo.c
   cg_cgaz.c
   cg_consolecmds.c
