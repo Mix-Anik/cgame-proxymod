@@ -120,7 +120,7 @@ qboolean PM_PredictLanding( vec3_t origin, vec3_t velocity, float gravity,
 							 int clientNum, traceFunc_t trace_func, vec3_t outLanding );
 
 // predict landing from rocket knockback
-qboolean PM_PredictRocketKnockback( playerState_t *ps, traceFunc_t trace_func, vec3_t outLanding );
+qboolean PM_PredictRocketKnockback( const playerState_t *ps, traceFunc_t trace_func, vec3_t outLanding );
 
 //===================================================================================
 
