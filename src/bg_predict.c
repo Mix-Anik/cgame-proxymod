@@ -97,23 +97,8 @@ qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gr
 
 	// Simulate movement until player lands or runs out of iterations
 	while ( iteration < pred_maxIterations ) {
-		// Check if grounded
-		if ( PM_IsGrounded(currentPos, &trace, trace_func) ) {
-			VectorCopy( currentPos, outLanding );
-			return qtrue;
-		}
-
 		// Apply gravity
 		currentVel[2] -= gravity * pred_frametime;
-
-		// Check if velocity is near zero in all axes (terminal state)
-		if ( VectorLength( currentVel ) < pred_lowVelocityThreshold && currentVel[2] < 0 ) {
-			// Very low velocity, still falling - simulate a bit more
-			if ( iteration > pred_lowVelIterationThreshold ) {
-				VectorCopy( currentPos, outLanding );
-				return qfalse;  // Didn't land, likely in void/water
-			}
-		}
 
 		// Move player
 		VectorMA( currentPos, pred_frametime, currentVel, traceEnd );
@@ -128,9 +113,23 @@ qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gr
 		// Update position
 		VectorMA( currentPos, trace.fraction * pred_frametime, currentVel, currentPos );
 
+		// Check if grounded after movement
+		if ( PM_IsGrounded(currentPos, &trace, trace_func) ) {
+			VectorCopy( currentPos, outLanding );
+			return qtrue;
+		}
+
 		// Clip velocity if we hit something
 		if ( trace.fraction < 1.0f ) {
 			PM_ClipVelocity(currentVel, trace.plane.normal, currentVel);
+		}
+
+		// Check if velocity is near zero (terminal state)
+		if ( VectorLength( currentVel ) < pred_lowVelocityThreshold && currentVel[2] < 0 ) {
+			if ( iteration > pred_lowVelIterationThreshold ) {
+				VectorCopy( currentPos, outLanding );
+				return qfalse;  // Didn't land, likely in void/water
+			}
 		}
 
 		iteration++;

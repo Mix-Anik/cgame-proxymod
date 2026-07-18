@@ -34,7 +34,7 @@ void draw_preland( void ) {
 	}
 
 	if ( PM_PredictRocketKnockback(getPs(), (traceFunc_t)trap_CM_BoxTrace, landingPos) ) {
-		snprintf(buf, sizeof(buf), "Landing: %.1f %.1f %.1f", landingPos[0], landingPos[1], landingPos[2]);
+		snprintf(buf, sizeof(buf), "Landing: %.6f %.6f %.6f", landingPos[0], landingPos[1], landingPos[2]);
 	} else {
 		snprintf(buf, sizeof(buf), "No landing found");
 	}
