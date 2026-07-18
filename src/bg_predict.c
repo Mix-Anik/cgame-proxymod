@@ -57,7 +57,7 @@ PM_IsGrounded
 Check if player is grounded at current position
 ===================
 */
-static qboolean PM_IsGrounded( vec3_t currentPos, trace_t *outTrace, traceFunc_t trace_func, int clientNum ) {
+static qboolean PM_IsGrounded( vec3_t currentPos, trace_t *outTrace, traceFunc_t trace_func ) {
 	vec3_t groundCheckEnd;
 
 	VectorCopy(currentPos, groundCheckEnd);
@@ -98,7 +98,7 @@ qboolean PM_PredictLanding( const vec3_t origin, const vec3_t velocity, float gr
 	// Simulate movement until player lands or runs out of iterations
 	while ( iteration < pred_maxIterations ) {
 		// Check if grounded
-		if ( PM_IsGrounded(currentPos, &trace, trace_func, clientNum) ) {
+		if ( PM_IsGrounded(currentPos, &trace, trace_func) ) {
 			VectorCopy( currentPos, outLanding );
 			return qtrue;
 		}
