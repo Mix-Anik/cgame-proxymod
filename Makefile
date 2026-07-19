@@ -9,10 +9,10 @@ build-unix:
 	@rm -rf build
 	@mkdir -p build
 	@echo "Configuring build..."
-	@cd build && cmake -G "Unix Makefiles" -DENABLE_TESTING=OFF ..
+	@cd build && cmake -G "Unix Makefiles" -DBINARY_NAME=cgamex86_64 -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=OFF ..
 	@echo "Building cgame module..."
 	@cmake --build build
-	@echo "✓ Built: build/cgame.so (or .dll on Windows)"
+	@echo "✓ Built: build/cgamex86_64.dll"
 
 clean:
 	@echo "Cleaning build directory..."
